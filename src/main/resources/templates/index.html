@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="fragments/layout" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="jumbotron">
+        <h1>JayBB forum</h1>
+        <p>Welcome! Please mind that JayBB is still under development.</p>
+    </div>
+
+    <div th:each="forum : ${forums}">
+        <div th:replace="fragments/forum :: panel(${forum})"></div>
+    </div>
+</div>
+</body>
+</html>

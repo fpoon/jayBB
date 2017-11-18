@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="panel(forum)" class="panel panel-default">
+    <div class="panel-heading"><span th:text="${forum.title}">Test forum</span></div>
+    <div class="panel-body">
+        <ul>
+            <li th:each="f : ${forum.forums}" ><a th:href="@{~/forum/{id}(id=${f.id})}" th:text="f.title">Test subforum</a></li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>
