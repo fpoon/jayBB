@@ -3,6 +3,7 @@ package com.fpoon.jaybb.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,11 +18,19 @@ public class Thread extends AuditingEntity {
 
     private String title;
 
-    @OneToMany
+    private Integer messagesSize;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("createdDate ASC")
-    private List<Message> messages;
+    private List<Message> messages = new ArrayList<>();
 
 
     private boolean closed = false;
     private boolean deleted = false;
+
+    @PrePersist
+    @PreUpdate
+    protected void countMessages() {
+        messagesSize = messages.size();
+    }
 }

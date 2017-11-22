@@ -1,6 +1,7 @@
 package com.fpoon.jaybb
 
 import com.fpoon.jaybb.domain.Forum
+import com.fpoon.jaybb.domain.Message
 import com.fpoon.jaybb.domain.Thread
 import com.fpoon.jaybb.repository.ForumRepository
 import org.springframework.beans.factory.InitializingBean
@@ -40,6 +41,12 @@ class Bootstrap implements InitializingBean {
         (1..5).each {
             def thread = new Thread();
             thread.title = "Test thread ${it}"
+            (1..5).each {
+                Message msg = new Message();
+                msg.setTitle("RE: Test message ${it}")
+                msg.setContent("Hello! I'm Test message no. ${it}")
+                thread.messages.add(msg)
+            }
             forum.threads.add(thread)
         }
     }

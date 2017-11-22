@@ -29,7 +29,7 @@
                 <tr th:each="thread : ${threads}">
                     <td><span><a th:href="@{~/thread/{id}(id=${thread.id})}" th:text="${thread.title}"></a></span></td>
                     <td><span th:text="${thread.createdDate}"></span></td>
-                    <td><span th:text="0"></span></td>
+                    <td><span th:text="${thread.messagesSize}"></span></td>
                     <td><span th:text="0"></span></td>
                     <td><span th:text="Unknown"></span></td>
                 </tr>
