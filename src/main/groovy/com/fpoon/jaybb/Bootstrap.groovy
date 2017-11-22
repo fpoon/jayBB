@@ -1,6 +1,7 @@
 package com.fpoon.jaybb
 
 import com.fpoon.jaybb.domain.Forum
+import com.fpoon.jaybb.domain.Thread
 import com.fpoon.jaybb.repository.ForumRepository
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Autowired
@@ -31,6 +32,15 @@ class Bootstrap implements InitializingBean {
             }
             forum.root = true
         }
+        createThreads(forum)
         return forum
+    }
+
+    def createThreads(Forum forum) {
+        (1..5).each {
+            def thread = new Thread();
+            thread.title = "Test thread ${it}"
+            forum.threads.add(thread)
+        }
     }
 }

@@ -16,11 +16,14 @@ public class Forum extends AuditingEntity {
 
     private String title;
 
+    private String description;
+
     private boolean root = false;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Forum> forums = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "forumId")
     private List<Thread> threads = new ArrayList<>();
 }

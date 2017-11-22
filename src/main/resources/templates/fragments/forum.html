@@ -12,5 +12,32 @@
     </div>
 </div>
 
+<div th:fragment="threads(threads)" class="panel panel-default">
+    <div class="panel-heading"><span>Threads</span></div>
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Start Date</th>
+                    <th>Replies</th>
+                    <th>Views</th>
+                    <th>Last Message</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="thread : ${threads}">
+                    <td><span><a th:href="@{~/thread/{id}(id=${thread.id})}" th:text="${thread.title}"></a></span></td>
+                    <td><span th:text="${thread.createdDate}"></span></td>
+                    <td><span th:text="0"></span></td>
+                    <td><span th:text="0"></span></td>
+                    <td><span th:text="Unknown"></span></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
 </body>
 </html>

@@ -6,11 +6,11 @@
 
     <title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE" th:text="${@environment.getProperty('jaybb.forum.title', 'jayBB')}"></title>
 
-    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script th:src="@{~/webjars/jquery/jquery.min.js}"></script>
 
-    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="webjars/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="webjars/bootstrap/css/bootstrap-theme.min.css" />
+    <script th:src="@{~/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{~/webjars/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{~/webjars/bootstrap/css/bootstrap-theme.min.css}" />
 </head>
 <body style="padding-top: 65px">
 <nav th:replace="fragments/navbar :: navbar"></nav>

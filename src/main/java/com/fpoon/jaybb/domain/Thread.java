@@ -13,9 +13,15 @@ public class Thread extends AuditingEntity {
     @GeneratedValue(generator = "sequenceGenerator")
     private Long id;
 
+    private Long forumId;
+
+    private String title;
+
     @OneToMany
     @OrderBy("createdDate ASC")
     private List<Message> messages;
 
+
     private boolean closed = false;
+    private boolean deleted = false;
 }
