@@ -22,6 +22,7 @@ public class Thread extends AuditingEntity {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("createdDate ASC")
+    @JoinColumn(name = "threadId")
     private List<Message> messages = new ArrayList<>();
 
 

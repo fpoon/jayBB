@@ -39,5 +39,14 @@
     </div>
 </div>
 
+<div th:fragment="message(message)" class="panel panel-default">
+    <div class="panel-heading">
+        <span th:text="${message.createdBy}"></span>
+    </div>
+    <div class="panel-body">
+        <div th:text="${message.content}"></div>
+    </div>
+</div>
+
 </body>
 </html>

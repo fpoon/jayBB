@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="fragments/layout" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title th:text="${thread.title}"></title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="jumbotron">
+        <h1 th:text="${thread.title}"></h1>
+    </div>
+
+    <div th:replace="fragments/pagination :: pagination(messages)"></div>
+
+    <div th:each="message : ${messages}">
+        <div th:replace="fragments/forum :: message(${message})"></div>
+    </div>
+
+    <div th:replace="fragments/pagination :: pagination(messages)"></div>
+</div>
+</body>
+</html>

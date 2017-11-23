@@ -13,6 +13,8 @@ public class Message extends AuditingEntity {
     @GeneratedValue(generator = "sequenceGenerator")
     private Long id;
 
+    private Long threadId;
+
     @Length(min = 3, max = 255)
     @Column(length = 255)
     private String title;
