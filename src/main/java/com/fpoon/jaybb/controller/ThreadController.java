@@ -4,6 +4,7 @@ import com.fpoon.jaybb.domain.Message;
 import com.fpoon.jaybb.domain.Thread;
 import com.fpoon.jaybb.repository.MessageRepository;
 import com.fpoon.jaybb.repository.ThreadRepository;
+import com.fpoon.jaybb.wrapper.PageWrapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +25,7 @@ public class ThreadController {
         Page<Message> messages = messageRepository.findAllByThreadId(thread.getId(), pageable);
 
         model.addAttribute("thread", thread);
-        model.addAttribute("messages", messages);
+        model.addAttribute("messages", new PageWrapper<>(messages));
 
         return "thread";
     }

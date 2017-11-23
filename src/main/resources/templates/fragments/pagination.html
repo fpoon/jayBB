@@ -4,19 +4,43 @@
 </head>
 <body>
 <nav th:fragment="navbar" class="navbar navbar-default navbar-fixed-top">
-    <div th:fragment="pagination(page)" class="text-center">
+    <div th:fragment="pagination(page, resource)" class="text-center">
         <ul class="pagination">
-            <li><a href="#">&laquo;</a></li>
-            <li><a href="#">&lsaquo;</a></li>
-            <li><a href="#">...</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">...</a></li>
-            <li><a href="#">&rsaquo;</a></li>
-            <li><a href="#">&raquo;</a></li>
+            <li th:if="${page.hasPrevious()}">
+                <a th:href="@{~/{resource}(resource=${resource},page=0,size=${page.size})}">
+                    &laquo;
+                </a>
+            </li>
+            <li th:if="${page.hasPrevious()}">
+                <a th:href="@{~/{resource}(resource=${resource},page=${page.number-1},size=${page.size})}">
+                    &lsaquo;
+                </a>
+            </li>
+            <li th:if="${page.previousMaxPages &gt; 0}">
+                <a href="#">...</a>
+            </li>
+            <li th:each="number : ${page.previousPagesNumbers}">
+                <a th:href="@{~/{resource}(resource=${resource},page=${number},size=${page.size})}"
+                   th:text="${number+1}">1</a>
+            </li>
+            <li class="active">
+                <a
+                   th:href="@{~/{resource}(resource=${resource},page=${page.number},size=${page.size})}"
+                   th:text="${page.number+1}">2</a>
+            </li>
+            <li th:each="number : ${page.nextPagesNumbers}">
+                <a th:href="@{~/{resource}(resource=${resource},page=${number},size=${page.size})}"
+                   th:text="${number+1}">3</a>
+            </li>
+            <li th:if="${page.nextMaxPages &lt; page.totalPages}">
+                <a href="#">...</a>
+            </li>
+            <li th:if="${page.hasNext()}">
+                <a th:href="@{~/{resource}(resource=${resource},page=${page.number+1},size=${page.size})}">&rsaquo;</a>
+            </li>
+            <li th:if="${page.hasNext()}">
+                <a th:href="@{~/{resource}(resource=${resource},page=${page.totalPages-1},size=${page.size})}">&raquo;</a>
+            </li>
         </ul>
     </div>
 </nav>
