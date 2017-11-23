@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="comment">
+    <button id="replyBtn" class="btn btn-default" data-toggle="collapse" data-target="#reply" onclick="$('#replyBtn').hide()"><i class="fa fa-reply"></i> Reply</button>
+    <div id="reply" class="collapse panel panel-default">
+        <div class="panel-body editor">
+
+        </div>
+        <div class="panel-footer">
+            <div class="text-right">
+                <button class="btn btn-danger" data-toggle="collapse" data-target="#reply" onclick="$('#replyBtn').show()"><i class="fa fa-times"></i> Discard</button>
+                <button class="btn btn-primary"><i class="fa fa-send"></i> Send</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('div.editor').summernote({
+                placeholder: 'Write your message here...',
+                height: 300
+            });
+        });
+    </script>
+</div>
+</body>
+</html>
