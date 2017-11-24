@@ -3,26 +3,39 @@
 <head>
 </head>
 <body>
-<div th:fragment="comment">
+<div th:fragment="comment(thread)">
     <button id="replyBtn" class="btn btn-default" data-toggle="collapse" data-target="#reply" onclick="$('#replyBtn').hide()"><i class="fa fa-reply"></i> Reply</button>
     <div id="reply" class="collapse panel panel-default">
-        <div class="panel-body editor">
+        <div id="editor" class="panel-body">
 
         </div>
         <div class="panel-footer">
             <div class="text-right">
                 <button class="btn btn-danger" data-toggle="collapse" data-target="#reply" onclick="$('#replyBtn').show()"><i class="fa fa-times"></i> Discard</button>
-                <button class="btn btn-primary"><i class="fa fa-send"></i> Send</button>
+                <button class="btn btn-primary" onclick="sendReply()"><i class="fa fa-send"></i> Send</button>
             </div>
         </div>
     </div>
-    <script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
         $(document).ready(function () {
-            $('div.editor').summernote({
+            $('div#editor').summernote({
                 placeholder: 'Write your message here...',
                 height: 300
             });
         });
+
+        function sendReply() {
+            var code = $('div#editor').summernote('code');
+            var url = [[@{~/thread/{threadId}/message(threadId=${thread.id})}]];
+            var title = 'RE: '+[[${thread.title}]];
+            $.post(url, {title: title, content: code})
+                .done(function (data) {
+                    window.location.href = [[@{~/thread/{threadId}(threadId=${thread.id})}]] + '?page=' + data;
+                });
+        }
+        /*]]>*/
     </script>
 </div>
 </body>

@@ -16,7 +16,7 @@
         <div th:replace="fragments/forum :: message(${message})"></div>
     </div>
 
-    <div th:replace="fragments/comment :: comment"></div>
+    <div th:replace="fragments/comment :: comment(${thread})"></div>
 
     <div th:replace="fragments/pagination :: pagination(${messages},${'thread/'+thread.id})"></div>
 
