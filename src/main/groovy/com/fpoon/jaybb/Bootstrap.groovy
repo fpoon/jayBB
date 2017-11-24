@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component
 
 @Component
 class Bootstrap implements InitializingBean {
+
+    static MAX_MESSAGES = 20;
+
     @Autowired
     private final ForumRepository forumRepository;
 
@@ -41,7 +44,7 @@ class Bootstrap implements InitializingBean {
         (1..5).each {
             def thread = new Thread();
             thread.title = "Test thread ${it}"
-            (1..5).each {
+            (1..MAX_MESSAGES).each {
                 Message msg = new Message();
                 msg.setTitle("RE: Test message ${it}")
                 msg.setContent("Hello! I'm Test message no. ${it}")
