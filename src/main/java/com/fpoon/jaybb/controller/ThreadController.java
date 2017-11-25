@@ -26,7 +26,7 @@ public class ThreadController {
 
     private final MessageService messageService;
 
-    @RequestMapping(value = "/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getThread(@PathVariable Long id, Pageable pageable, Model model) {
         Thread thread = threadRepository.findOne(id);
         Page<Message> messages = messageRepository.findAllByThreadId(thread.getId(), pageable);

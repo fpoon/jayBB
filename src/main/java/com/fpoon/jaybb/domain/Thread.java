@@ -1,6 +1,8 @@
 package com.fpoon.jaybb.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -8,6 +10,8 @@ import java.util.List;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
 public class Thread extends AuditingEntity {
     @Id
     @SequenceGenerator(name = "sequenceGenerator", sequenceName = "hibernate_sequence")
@@ -33,5 +37,10 @@ public class Thread extends AuditingEntity {
     @PreUpdate
     protected void countMessages() {
         messagesSize = messages.size();
+    }
+
+    public Thread(String title, String content) {
+        this.title = title;
+        this.messages.add(new Message(title, content));
     }
 }
