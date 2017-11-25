@@ -18,10 +18,11 @@ public class MessageService {
     private final ThreadRepository threadRepository;
 
     @Transactional
-    public void addMessageToThread(MessageDTO dto, Thread thread) {
+    public Thread addMessageToThread(MessageDTO dto, Thread thread) {
         Message msg = new Message(dto.getTitle(), dto.getContent());
         thread.getMessages().add(msg);
-        threadRepository.save(thread);
+        thread.setMessagesSize(thread.getMessages().size());
+        return threadRepository.save(thread);
     }
 
     @Transactional

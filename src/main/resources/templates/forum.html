@@ -11,6 +11,8 @@
         <p th:text="${forum.description}"></p>
     </div>
 
+    <div th:replace="fragments/forum :: forumControl(${forum})"></div>
+
     <div th:each="forum : ${forum.forums}">
         <div th:replace="fragments/forum :: panel(${forum})"></div>
     </div>

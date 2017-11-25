@@ -1,8 +1,10 @@
 package com.fpoon.jaybb.domain;
 
+import com.fpoon.jaybb.listener.ThreadListener;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
+@EntityListeners({AuditingEntityListener.class, ThreadListener.class})
 public class Thread extends AuditingEntity {
     @Id
     @SequenceGenerator(name = "sequenceGenerator", sequenceName = "hibernate_sequence")
@@ -32,12 +35,6 @@ public class Thread extends AuditingEntity {
 
     private boolean closed = false;
     private boolean deleted = false;
-
-    @PrePersist
-    @PreUpdate
-    protected void countMessages() {
-        messagesSize = messages.size();
-    }
 
     public Thread(String title, String content) {
         this.title = title;

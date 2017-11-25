@@ -39,6 +39,12 @@
     </div>
 </div>
 
+<div th:fragment="forumControl(forum)">
+        <button class="btn btn-primary" data-toggle="collapse" data-target="#newThread"><i class="fa fa-plus"></i> New thread</button>
+        <div th:replace="fragments/newThread :: newThread(${forum})"></div>
+    <hr/>
+</div>
+
 <div th:fragment="message(message)" class="panel panel-default">
     <div class="panel-heading">
         <span th:text="${message.createdBy}"></span>

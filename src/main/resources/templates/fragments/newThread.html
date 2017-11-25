@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="newThread(forum)" id="newThread" class="panel panel-default collapse">
+    <div class="panel-body">
+        <form>
+            <label for="title" class="control-label">Title</label>
+            <input type="text" id="title" class="form-control"/>
+            <label for="editor">Message</label>
+            <div id="editor"></div>
+            <div>
+                <div class="text-right">
+                    <button class="btn btn-danger" data-toggle="collapse" data-target="#newThread"><i class="fa fa-times"></i> Discard</button>
+                    <button class="btn btn-primary" onclick="postThread()"><i class="fa fa-send"></i> Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        $(document).ready(function () {
+            $('div#editor').summernote({
+                placeholder: 'Write your message here...',
+                height: 300
+            });
+
+            $('form').submit(function(e){e.preventDefault(e);});
+        });
+
+        function postThread() {
+            var code = $('div#editor').summernote('code');
+            var url = [[@{~/forum/{forumId}/thread(forumId=${forum.id})}]];
+                var title = $('input#title').val();
+                $.post(url, {title: title, content: code})
+                    .done(function (data) {
+                        window.location.href = [[@{~/thread/}]] + data;
+                    });
+            }
+        /*]]>*/
+    </script>
+</div>
+</body>
+</html>
