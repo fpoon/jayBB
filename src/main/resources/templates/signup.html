@@ -8,21 +8,26 @@
 <div layout:fragment="content">
     <div class="col-sm-6 col-sm-offset-3">
         <div class="panel panel-primary">
-            <div class="panel-heading">Sign in</div>
+            <div class="panel-heading">Sign up</div>
             <div class="panel-body">
-                <form th:action="@{~/signin}" method="post">
+                <form th:action="@{~/signup}" th:object="${dto}" method="post">
                     <div class="form-group">
                         <label for="username">Username:</label>
-                        <input id="username" name="username" class="form-control" />
+                        <input th:field="*{username}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail:</label>
+                        <input type="email" th:field="*{email}" class="form-control" />
                     </div>
                     <div class="form-group">
                         <label for="password">Password:</label>
-                        <input type="password" id="password" name="password" class="form-control" />
+                        <input type="password" th:field="*{password}" class="form-control" />
                     </div>
                     <div class="form-group">
-                        <a th:href="@{~/signup}">Don't have an account? Join us!</a>
+                        <label for="repeatPassword">Repeat password:</label>
+                        <input type="password" th:field="*{repeatPassword}" class="form-control" />
                     </div>
-                    <button class="btn btn-primary">Sign in</button>
+                    <button class="btn btn-primary">Sign up</button>
                 </form>
             </div>
         </div>

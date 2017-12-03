@@ -7,8 +7,8 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -33,6 +33,6 @@ public class User {
     @Column(unique = true)
     private String email;
 
-    @ElementCollection
-    private List<String> roles = new ArrayList<>();
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<String> roles = new HashSet<>();
 }
