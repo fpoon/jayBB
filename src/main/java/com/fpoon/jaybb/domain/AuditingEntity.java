@@ -17,10 +17,13 @@ import java.time.LocalDateTime;
 public abstract class AuditingEntity {
     @CreatedDate
     private LocalDateTime createdDate;
+
     @CreatedBy
     private String createdBy;
+
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
+
     @LastModifiedBy
     private String lastModifiedBy;
 }
