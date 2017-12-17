@@ -48,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/","/h2-console/**").permitAll()
                 .antMatchers("/signup").permitAll()
+                .antMatchers("/", "/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                     .headers().frameOptions().disable()
@@ -57,6 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .and()
                     .logout()
+                    .logoutUrl("/logout")
                     .permitAll();
     }
 

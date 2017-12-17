@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" layout:decorator="fragments/layout" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org">
+<html lang="en" layout:decorator="fragments/layout" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8" />
     <title th:text="${thread.title}"></title>
@@ -15,8 +15,9 @@
     <div th:each="message : ${messages}">
         <div th:replace="fragments/forum :: message(${message})"></div>
     </div>
-
-    <div th:replace="fragments/comment :: comment(${thread})"></div>
+    <div sec:authorize="isAuthenticated()">
+        <div th:replace="fragments/comment :: comment(${thread})"></div>
+    </div>
 
     <div th:replace="fragments/pagination :: pagination(${messages},${'thread/'+thread.id})"></div>
 

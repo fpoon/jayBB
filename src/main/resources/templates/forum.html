@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" layout:decorator="fragments/layout" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org">
+<html lang="en" layout:decorator="fragments/layout" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8" />
     <title th:text="${forum.title}"></title>
@@ -11,7 +12,9 @@
         <p th:text="${forum.description}"></p>
     </div>
 
-    <div th:replace="fragments/forum :: forumControl(${forum})"></div>
+    <div sec:authorize="isAuthenticated()">
+        <div th:replace="fragments/forum :: forumControl(${forum})"></div>
+    </div>
 
     <div th:each="forum : ${forum.forums}">
         <div th:replace="fragments/forum :: panel(${forum})"></div>
