@@ -1,8 +1,8 @@
 package com.fpoon.jaybb.controller;
 
+import com.fpoon.jaybb.articlebot.service.UserService;
 import com.fpoon.jaybb.dto.CreateUserDTO;
 import com.fpoon.jaybb.repository.UserRepository;
-import com.fpoon.jaybb.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

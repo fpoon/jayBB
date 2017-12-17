@@ -1,6 +1,6 @@
 package com.fpoon.jaybb.config;
 
-import com.fpoon.jaybb.service.UserService;
+import com.fpoon.jaybb.articlebot.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

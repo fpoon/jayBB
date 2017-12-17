@@ -1,9 +1,10 @@
-package com.fpoon.jaybb.service;
+package com.fpoon.jaybb.articlebot.service;
 
 import com.fpoon.jaybb.constant.UserRoles;
 import com.fpoon.jaybb.domain.User;
 import com.fpoon.jaybb.dto.CreateUserDTO;
 import com.fpoon.jaybb.repository.UserRepository;
+import com.google.common.base.Strings;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,15 +30,27 @@ public class UserService {
 
     @PostConstruct
     public void createDefaultUser() {
-        User defUser = userRepository.findTopByUsername(defaultUsername).orElseGet(() -> {
-            log.info("Creating default user...");
+        fakeUser(defaultUsername, defaultEmail);
+    }
+
+    @Transactional
+    public User fakeUser(String username, String email) {
+        User fuser = userRepository.findTopByUsername(username).orElseGet(() -> {
+            log.info("Creating fake user...");
             User user = new User();
-            user.setUsername(defaultUsername);
-            user.setEmail(defaultEmail);
+            user.setUsername(username);
+            user.setEmail(email);
             return userRepository.save(user);
         });
 
-        log.info("Default user: Username: {} | Email: {}", defUser.getEmail(), defUser.getEmail());
+        if (!Strings.isNullOrEmpty(fuser.getPassword())) {
+            log.error("Username {} is taken by the real user!", fuser.getUsername());
+            return null;
+        }
+
+        log.info("Fake user: Username: {} | Email: {}", fuser.getUsername(), fuser.getEmail());
+
+        return fuser;
     }
 
     @Transactional
