@@ -17,7 +17,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a th:href="@{~/}">Home</a></li>
+                <li><a th:href="@{~/}">Home</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" sec:authorize="!isAuthenticated()">
                 <li><a th:href="@{~/signin}">Sign in</a></li>
