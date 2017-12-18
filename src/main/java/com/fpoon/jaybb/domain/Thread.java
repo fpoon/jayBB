@@ -35,6 +35,7 @@ public class Thread extends AuditingEntity {
 
     private boolean closed = false;
     private boolean deleted = false;
+    private boolean sticky = false;
 
     public Thread(String title, String content) {
         this.title = title;

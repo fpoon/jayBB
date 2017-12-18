@@ -34,7 +34,7 @@ public class ForumController {
                            @SortDefault(sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable,
                            Model model) {
         Forum forum = forumRepository.findOne(id);
-        Page<Thread> threads = threadRepository.findAllByDeletedFalseAndForumIdOrderByLastModifiedDateDesc(forum.getId(), pageable);
+        Page<Thread> threads = threadService.listThreads(forum.getId(), pageable);
         model.addAttribute("forum", forum);
         model.addAttribute("threads",threads);
         return "forum";

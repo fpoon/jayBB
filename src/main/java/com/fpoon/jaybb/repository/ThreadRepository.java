@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ThreadRepository extends JpaRepository<Thread, Long> {
     Page<Thread> findAllByDeletedFalseAndForumIdOrderByLastModifiedDateDesc(Long forumId, Pageable pageable);
+    Page<Thread> findAllByDeletedFalseAndForumId(Long forumId, Pageable pageable);
 }

@@ -28,7 +28,10 @@
             </thead>
             <tbody>
                 <tr th:each="thread : ${threads}">
-                    <td><span><a th:href="@{~/thread/{id}(id=${thread.id})}" th:text="${thread.title}"></a></span></td>
+                    <td>
+                        <span><a th:href="@{~/thread/{id}(id=${thread.id})}" th:text="${thread.title}"></a></span>
+                        <span th:if="${thread.sticky}" class="label label-warning"><i class="fa fa-thumb-tack"></i></span>
+                    </td>
                     <td>
                         <span th:text="${{thread.createdDate}}"></span><br/>
                         <span th:text="${thread.createdBy}"></span>
@@ -40,7 +43,12 @@
                         <span th:text="${thread.lastModifiedBy}"></span>
                     </td>
                     <td sec:authorize="hasRole('ROLE_ADMIN')">
-                        <button class="btn btn-danger" th:onclick="'threadService.remove(' + ${thread.id} + ')'"><i class="fa fa-remove"></i> Remove</button>
+                        <div class="pull-right">
+                            <button class="btn btn-danger" th:onclick="'threadService.remove(' + ${thread.id} + ')'"><i class="fa fa-remove"></i> Remove</button>
+                            <button class="btn btn-warning" th:onclick="'threadService.stick(' + ${thread.id} + ')'">
+                                <i class="fa fa-thumb-tack"></i> <span th:text="${thread.sticky ? 'Unstick' : 'Stick'}"></span>
+                            </button>
+                        </div>
                     </td>
                 </tr>
             </tbody>

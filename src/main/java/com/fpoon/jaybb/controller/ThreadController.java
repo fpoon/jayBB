@@ -57,4 +57,13 @@ public class ThreadController {
         threadService.removeThread(id);
         return String.format("/forum/%d", forumId);
     }
+
+    @RequestMapping(value = "/{id}/stick", method = RequestMethod.POST)
+    @ResponseBody
+    public String stickThread(@PathVariable Long id) {
+        Thread thread = threadRepository.findOne(id);
+        Long forumId = thread.getForumId();
+        threadService.stickThread(id);
+        return String.format("/forum/%d", forumId);
+    }
 }
