@@ -6,6 +6,7 @@ import com.fpoon.jaybb.dto.ThreadDTO;
 import com.fpoon.jaybb.repository.ForumRepository;
 import com.fpoon.jaybb.repository.ThreadRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,5 +23,11 @@ public class ThreadService {
         forum.getThreads().add(thread);
         forumRepository.save(forum);
         return thread;
+    }
+
+    @Transactional
+    @Modifying
+    public void removeThread(Long id) {
+        threadRepository.delete(id);
     }
 }

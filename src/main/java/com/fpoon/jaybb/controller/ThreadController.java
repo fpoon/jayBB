@@ -6,6 +6,7 @@ import com.fpoon.jaybb.dto.MessageDTO;
 import com.fpoon.jaybb.repository.MessageRepository;
 import com.fpoon.jaybb.repository.ThreadRepository;
 import com.fpoon.jaybb.service.MessageService;
+import com.fpoon.jaybb.service.ThreadService;
 import com.fpoon.jaybb.wrapper.PageWrapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,7 @@ public class ThreadController {
     private final ThreadRepository threadRepository;
     private final MessageRepository messageRepository;
 
+    private final ThreadService threadService;
     private final MessageService messageService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -45,5 +47,14 @@ public class ThreadController {
         Thread thread = threadRepository.findOne(id);
         messageService.addMessageToThread(dto, thread);
         return messageRepository.findAllByThreadId(id, pageable).getTotalPages()-1;
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public String removeThread(@PathVariable Long id) {
+        Thread thread = threadRepository.findOne(id);
+        Long forumId = thread.getForumId();
+        threadService.removeThread(id);
+        return String.format("/forum/%d", forumId);
     }
 }

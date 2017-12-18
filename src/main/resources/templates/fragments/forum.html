@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 </head>
 <body>
@@ -23,6 +23,7 @@
                     <th>Replies</th>
                     <th>Views</th>
                     <th>Last Message</th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')">Control</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,10 +39,12 @@
                         <span th:text="${{thread.lastModifiedDate}}"></span><br/>
                         <span th:text="${thread.lastModifiedBy}"></span>
                     </td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')">
+                        <button class="btn btn-danger" th:onclick="'threadService.remove(' + ${thread.id} + ')'"><i class="fa fa-remove"></i> Remove</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
-
     </div>
 </div>
 
