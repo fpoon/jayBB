@@ -2,6 +2,8 @@ package com.fpoon.jaybb.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -13,6 +15,8 @@ import java.util.Set;
 @Entity
 @Data
 @Table(name = "\"user\"")
+@EqualsAndHashCode(of = {"id", "username", "email"})
+@ToString(of = {"id", "username", "email", "roles"})
 public class User {
     @Id
     @SequenceGenerator(name = "sequenceGenerator", sequenceName = "hibernate_sequence")
