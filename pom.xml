@@ -70,19 +70,6 @@
             <artifactId>guava</artifactId>
             <version>23.5-jre</version>
         </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>webjars-locator</artifactId>
-            <version>0.32-1</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all -->
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-            <version>2.4.12</version>
-        </dependency>
-
 
         <!-- WEB JARS -->
         <dependency>
@@ -163,7 +150,7 @@
                         <id>compile</id>
                         <phase>compile</phase>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <mkdir dir="${basedir}/src/main/groovy"/>
                                 <taskdef name="groovyc"
                                          classname="org.codehaus.groovy.ant.Groovyc">
@@ -174,7 +161,7 @@
                                          srcdir="${basedir}/src/main/groovy/" listfiles="true">
                                     <classpath refid="maven.compile.classpath"/>
                                 </groovyc>
-                            </tasks>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>
@@ -184,7 +171,7 @@
                         <id>test-compile</id>
                         <phase>test-compile</phase>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <mkdir dir="${basedir}/src/test/groovy"/>
                                 <taskdef name="groovyc"
                                          classname="org.codehaus.groovy.ant.Groovyc">
@@ -195,7 +182,7 @@
                                          srcdir="${basedir}/src/test/groovy/" listfiles="true">
                                     <classpath refid="maven.test.classpath"/>
                                 </groovyc>
-                            </tasks>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>
