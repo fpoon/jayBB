@@ -1,9 +1,9 @@
-package com.fpoon.jaybb.service;
+package com.fpoon.jaybb.articlebot.service;
 
 import com.chimbori.crux.articles.Article;
 import com.chimbori.crux.articles.ArticleExtractor;
-import com.fpoon.jaybb.articlebot.service.UserService;
 import com.fpoon.jaybb.domain.User;
+import com.fpoon.jaybb.service.UserService;
 import com.google.common.io.CharStreams;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

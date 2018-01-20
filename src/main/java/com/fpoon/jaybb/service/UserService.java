@@ -1,4 +1,4 @@
-package com.fpoon.jaybb.articlebot.service;
+package com.fpoon.jaybb.service;
 
 import com.fpoon.jaybb.constant.UserRoles;
 import com.fpoon.jaybb.domain.User;

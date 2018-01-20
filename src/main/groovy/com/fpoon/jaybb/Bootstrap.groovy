@@ -1,6 +1,5 @@
 package com.fpoon.jaybb
 
-import com.fpoon.jaybb.articlebot.service.UserService
 import com.fpoon.jaybb.constant.UserRoles
 import com.fpoon.jaybb.domain.Forum
 import com.fpoon.jaybb.domain.Message
@@ -9,6 +8,7 @@ import com.fpoon.jaybb.domain.User
 import com.fpoon.jaybb.dto.CreateUserDTO
 import com.fpoon.jaybb.repository.ForumRepository
 import com.fpoon.jaybb.repository.UserRepository
+import com.fpoon.jaybb.service.UserService
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.password.PasswordEncoder
