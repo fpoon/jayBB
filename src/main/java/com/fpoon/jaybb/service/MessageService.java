@@ -6,10 +6,9 @@ import com.fpoon.jaybb.dto.MessageDTO;
 import com.fpoon.jaybb.repository.MessageRepository;
 import com.fpoon.jaybb.repository.ThreadRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.awt.print.Pageable;
 
 @Service
 @RequiredArgsConstructor
