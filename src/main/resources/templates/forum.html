@@ -21,7 +21,7 @@
     </div>
 
     <div th:if="${forum.editable}">
-        <div th:replace="fragments/forum :: threads(${threads})"></div>
+        <div th:replace="fragments/forum :: threads(${threads}, ${forum})"></div>
     </div>
 </div>
 </body>

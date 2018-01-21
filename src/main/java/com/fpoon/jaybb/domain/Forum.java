@@ -36,7 +36,12 @@ public class Forum extends AuditingEntity {
     private List<Thread> threads = new ArrayList<>();
 
     public boolean isModerator() {
-        org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        org.springframework.security.core.userdetails.User user;
+        try {
+            user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        } catch (ClassCastException ex) {
+            return false;
+        }
 
         if (user == null)
             return false;

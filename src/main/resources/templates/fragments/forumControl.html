@@ -12,6 +12,11 @@
         <i class="fa fa-plus"></i> New forum
     </button>
 
+    <button class="btn btn-danger" data-toggle="collapse" data-target="#deleteForum"
+            th:if="${forum.isModerator()}">
+        <i class="fa fa-remove"></i> Remove forum
+    </button>
+
     <div th:replace="fragments/newThread :: newThread(${forum})"></div>
     <hr/>
 </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 </head>
 <body>
@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<div th:fragment="threads(threads)" class="panel panel-default">
+<div th:fragment="threads(threads, forum)" class="panel panel-default">
     <div class="panel-heading"><span>Threads</span></div>
     <div class="panel-body">
         <table class="table">
@@ -23,7 +23,7 @@
                     <th>Replies</th>
                     <th>Views</th>
                     <th>Last Message</th>
-                    <th sec:authorize="hasRole('ROLE_ADMIN')">Control</th>
+                    <th th:if="${forum.isModerator()}"><div class="pull-right">Control</div></th>
                 </tr>
             </thead>
             <tbody>
@@ -42,7 +42,7 @@
                         <span th:text="${{thread.lastModifiedDate}}"></span><br/>
                         <span th:text="${thread.lastModifiedBy}"></span>
                     </td>
-                    <td sec:authorize="hasRole('ROLE_ADMIN')">
+                    <td th:if="${forum.isModerator()}">
                         <div class="pull-right">
                             <button class="btn btn-danger" th:onclick="'threadService.remove(' + ${thread.id} + ')'"><i class="fa fa-remove"></i> Remove</button>
                             <button class="btn btn-warning" th:onclick="'threadService.stick(' + ${thread.id} + ')'">
