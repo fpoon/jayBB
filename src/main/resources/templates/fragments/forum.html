@@ -61,7 +61,7 @@
         <span th:text="${message.createdBy}"></span> replied <span th:text="${{message.createdDate}}"></span>
     </div>
     <div class="panel-body">
-        <div th:text="${message.content}"></div>
+        <div th:utext="${message.content}"></div>
     </div>
 </div>
 

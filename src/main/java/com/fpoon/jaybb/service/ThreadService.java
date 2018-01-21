@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class ThreadService {
+    private final HtmlPurifier purifier;
     private final ForumRepository forumRepository;
     private final ThreadRepository threadRepository;
 
@@ -32,7 +33,7 @@ public class ThreadService {
 
     @Transactional
     public Thread addThreadToForum(ThreadDTO dto, Forum forum) {
-        Thread thread = new Thread(dto.getTitle(), dto.getContent());
+        Thread thread = new Thread(dto.getTitle(), purifier.purify(dto.getContent()));
         thread = threadRepository.save(thread);
         forum.getThreads().add(thread);
         forumRepository.save(forum);
