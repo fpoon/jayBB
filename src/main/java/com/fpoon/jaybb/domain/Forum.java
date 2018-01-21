@@ -2,6 +2,8 @@ package com.fpoon.jaybb.domain;
 
 import com.fpoon.jaybb.constant.UserRoles;
 import lombok.Data;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -33,14 +35,17 @@ public class Forum extends AuditingEntity {
     @JoinColumn(name = "forumId")
     private List<Thread> threads = new ArrayList<>();
 
-    public boolean isModerator(User user) {
+    public boolean isModerator() {
+        org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         if (user == null)
             return false;
 
-        if (user.getRoles().contains(UserRoles.ADMIN))
+        if (user.getAuthorities().contains(new SimpleGrantedAuthority(UserRoles.ADMIN)))
             return true;
 
-        if (user.getRoles().contains(UserRoles.MODERATOR) && moderators.contains(user))
+        if (user.getAuthorities().contains(new SimpleGrantedAuthority(UserRoles.MODERATOR))
+                && moderators.stream().anyMatch(m -> m.getUsername().equals(user.getUsername())))
             return true;
 
         return false;

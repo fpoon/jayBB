@@ -13,7 +13,7 @@
     </div>
 
     <div sec:authorize="isAuthenticated()">
-        <div th:replace="fragments/forum :: forumControl(${forum})"></div>
+        <div th:replace="fragments/forumControl :: forumControl(${forum})"></div>
     </div>
 
     <div th:each="forum : ${forum.forums}">
