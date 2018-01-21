@@ -20,7 +20,9 @@
         <div th:replace="fragments/forum :: panel(${forum})"></div>
     </div>
 
-    <div th:replace="fragments/forum :: threads(${threads})"></div>
+    <div th:if="${forum.editable}">
+        <div th:replace="fragments/forum :: threads(${threads})"></div>
+    </div>
 </div>
 </body>
 </html>

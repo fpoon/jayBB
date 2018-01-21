@@ -40,7 +40,7 @@ class Bootstrap implements InitializingBean {
     }
 
     def createForums() {
-        forums.each {forumRepository.save(createForum(it, 3))}
+        forums.each {forumRepository.save(createForum(it, 3, false))}
     }
 
     def createUsers() {
@@ -58,12 +58,13 @@ class Bootstrap implements InitializingBean {
         userRepository.save(user)
     }
 
-    def createForum(def title, def subforums) {
+    def createForum(def title, def subforums, def editable) {
         def forum = new Forum()
         forum.setTitle(title)
+        forum.setEditable(editable)
         if (subforums) {
             (1..subforums).each {
-                forum.forums += createForum("${title} - Subforum ${it}", null)
+                forum.forums += createForum("${title} - Subforum ${it}", null, true)
             }
             forum.root = true
         }

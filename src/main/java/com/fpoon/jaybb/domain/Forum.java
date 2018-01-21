@@ -21,6 +21,8 @@ public class Forum extends AuditingEntity {
 
     private boolean root = false;
 
+    private boolean editable = true;
+
     @ManyToMany
     private List<User> moderators = new ArrayList<>();
 
