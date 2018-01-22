@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="userList(users)">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Control</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.email}"></td>
+            <td>
+                            <span class="label"
+                                  th:each="role : ${user.roles}"
+                                  th:text="${role}"
+                                  th:classappend="${role} == 'ROLE_ADMIN' ? 'label-danger' : (${role} == 'ROLE_MODERATOR' ? 'label-warning' : 'label-primary')"></span>
+            </td>
+            <td>
+                <button class="btn btn-danger">
+                    <i class="fa fa-remove"></i> Remove user
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

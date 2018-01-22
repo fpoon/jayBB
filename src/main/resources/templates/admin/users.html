@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="fragments/layout" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Forum</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            Administration panel
+        </div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nav-justified">
+                <li><a th:href="@{~/admin}">Home</a></li>
+                <li class="active"><a th:href="@{~/admin/users}">Users</a></li>
+            </ul>
+
+            <div th:replace="fragments/userList :: userList(${users})"></div>
+
+            <div th:replace="fragments/pagination :: pagination(${users}, @{~/admin/users})"></div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
