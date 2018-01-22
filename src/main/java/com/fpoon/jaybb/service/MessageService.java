@@ -15,12 +15,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class MessageService {
     private final HtmlPurifier htmlPurifier;
 
+    private final UserService userService;
+
     private final MessageRepository messageRepository;
     private final ThreadRepository threadRepository;
 
     @Transactional
     public Thread addMessageToThread(MessageDTO dto, Thread thread) {
         Message msg = new Message(dto.getTitle(), htmlPurifier.purify(dto.getContent()));
+        msg.setUser(userService.getCurrentUser());
         thread.getMessages().add(msg);
         thread.setMessagesSize(thread.getMessages().size());
         return threadRepository.save(thread);

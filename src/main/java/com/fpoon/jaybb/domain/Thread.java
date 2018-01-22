@@ -32,12 +32,17 @@ public class Thread extends AuditingEntity {
     @JoinColumn(name = "threadId")
     private List<Message> messages = new ArrayList<>();
 
-
     private boolean closed = false;
     private boolean deleted = false;
     private boolean sticky = false;
 
     private Integer views = 0;
+
+    public Message getLastMessage() {
+        if (messages.isEmpty())
+            return null;
+        return messages.get(messages.size() - 1);
+    }
 
     public Thread(String title, String content) {
         this.title = title;

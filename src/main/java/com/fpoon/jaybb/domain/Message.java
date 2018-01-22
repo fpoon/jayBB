@@ -19,6 +19,9 @@ public class Message extends AuditingEntity {
 
     private Long threadId;
 
+    @ManyToOne
+    private User user;
+
     @Length(min = 3, max = 255)
     @Column(length = 255)
     private String title;
