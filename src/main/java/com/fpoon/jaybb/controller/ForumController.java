@@ -18,10 +18,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/forum")
@@ -59,5 +56,13 @@ public class ForumController {
     public ResponseEntity<?> deleteForum(@PathVariable Long id) {
         forumService.deleteForum(id);
         return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(value = {"/", ""}, method = RequestMethod.POST)
+    @Secured({UserRoles.ADMIN, UserRoles.MODERATOR})
+    public ResponseEntity<?> newForum(@RequestParam(name = "title", required = true) String title,
+                                      @RequestParam(name = "parentId", required = false) Long parentId) {
+        Forum forum = forumService.newForum(title, parentId);
+        return ResponseEntity.ok("/forum/"+forum.getId());
     }
 }

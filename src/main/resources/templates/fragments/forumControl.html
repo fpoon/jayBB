@@ -7,17 +7,6 @@
 <div th:fragment="forumControl(forum)">
     <button class="btn btn-primary" data-toggle="collapse" data-target="#newThread"><i class="fa fa-plus"></i> New thread</button>
 
-    <button class="btn btn-primary" data-toggle="collapse" data-target="#newForum"
-            th:if="${forum.isModerator()}">
-        <i class="fa fa-plus"></i> New forum
-    </button>
-
-    <button class="btn btn-danger"
-            th:onclick="'forumService.remove(' + ${forum.id} + ')'"
-            th:if="${forum.isModerator()}">
-        <i class="fa fa-remove"></i> Remove forum
-    </button>
-
     <div th:replace="fragments/newThread :: newThread(${forum})"></div>
     <hr/>
 </div>

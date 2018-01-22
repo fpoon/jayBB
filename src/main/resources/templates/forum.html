@@ -16,6 +16,10 @@
         <div th:replace="fragments/forumControl :: forumControl(${forum})"></div>
     </div>
 
+    <div th:if="${forum.isModerator()}">
+        <div th:replace="fragments/forumModerationControl :: forumModerationControl(${forum})"></div>
+    </div>
+
     <div th:each="forum : ${forum.forums}">
         <div th:replace="fragments/forum :: panel(${forum})"></div>
     </div>

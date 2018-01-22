@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="newForum(forum)" id="newForum" class="panel panel-default collapse">
+    <div class="panel-body">
+        <form>
+            <label for="forumTitle" class="control-label">Title</label>
+            <input type="text" id="forumTitle" class="form-control"/>
+            <br/>
+            <div>
+                <div class="text-right">
+                    <button class="btn btn-danger" data-toggle="collapse" data-target="#newForum"><i class="fa fa-times"></i> Discard</button>
+                    <button class="btn btn-primary" th:onclick="'forumService.create($(\'#forumTitle\').val(),' + ${forum.id} + ')'"><i class="fa fa-send"></i> Create</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
