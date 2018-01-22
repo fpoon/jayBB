@@ -26,7 +26,7 @@
                                   th:classappend="${role} == 'ROLE_ADMIN' ? 'label-danger' : (${role} == 'ROLE_MODERATOR' ? 'label-warning' : 'label-primary')"></span>
             </td>
             <td>
-                <button class="btn btn-danger">
+                <button class="btn btn-danger" th:onclick="'userService.remove(' + ${user.id} + ')'">
                     <i class="fa fa-remove"></i> Remove user
                 </button>
             </td>
