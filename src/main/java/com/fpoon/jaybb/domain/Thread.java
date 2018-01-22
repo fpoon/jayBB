@@ -37,6 +37,8 @@ public class Thread extends AuditingEntity {
     private boolean deleted = false;
     private boolean sticky = false;
 
+    private Integer views = 0;
+
     public Thread(String title, String content) {
         this.title = title;
         this.messages.add(new Message(title, content));

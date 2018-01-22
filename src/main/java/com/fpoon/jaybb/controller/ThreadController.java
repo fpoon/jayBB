@@ -9,6 +9,7 @@ import com.fpoon.jaybb.service.MessageService;
 import com.fpoon.jaybb.service.ThreadService;
 import com.fpoon.jaybb.wrapper.PageWrapper;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/thread")
@@ -29,8 +32,16 @@ public class ThreadController {
     private final MessageService messageService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String getThread(@PathVariable Long id, Pageable pageable, Model model) {
+    public String getThread(@PathVariable Long id, Pageable pageable, Model model,
+                            HttpServletRequest request
+    ) {
         Thread thread = threadRepository.findOne(id);
+
+        if (!StringUtils.equalsIgnoreCase(request.getRequestURL(), request.getHeader("referer"))) {
+            thread.setViews(thread.getViews() + 1);
+            thread = threadRepository.save(thread);
+        }
+
         Page<Message> messages = messageRepository.findAllByThreadId(thread.getId(), pageable);
 
         model.addAttribute("thread", thread);
