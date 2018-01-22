@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+</head>
+<body>
+
+<div th:fragment="forumMainControl(forum)">
+    <button class="btn btn-primary" data-toggle="collapse" data-target="#newForum"
+            sec:authorize="hasRole('ROLE_ADMIN')">
+        <i class="fa fa-plus"></i> New forum
+    </button>
+
+    <div th:replace="fragments/newForum :: newForum(${forum})"></div>
+    <hr/>
+</div>
+
+</body>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" layout:decorator="fragments/layout" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org">
+<html lang="en" layout:decorator="fragments/layout" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8" />
     <title>Forum</title>
@@ -9,6 +9,10 @@
     <div class="jumbotron">
         <h1>JayBB forum</h1>
         <p>Welcome! Please mind that JayBB is still under development.</p>
+    </div>
+
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <div th:replace="fragments/forumMainControl :: forumMainControl(null)"></div>
     </div>
 
     <div th:each="forum : ${forums}">
