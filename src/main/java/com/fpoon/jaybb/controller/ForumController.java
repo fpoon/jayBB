@@ -1,16 +1,20 @@
 package com.fpoon.jaybb.controller;
 
+import com.fpoon.jaybb.constant.UserRoles;
 import com.fpoon.jaybb.domain.Forum;
 import com.fpoon.jaybb.domain.Thread;
 import com.fpoon.jaybb.dto.ThreadDTO;
 import com.fpoon.jaybb.repository.ForumRepository;
 import com.fpoon.jaybb.repository.ThreadRepository;
+import com.fpoon.jaybb.service.ForumService;
 import com.fpoon.jaybb.service.ThreadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.SortDefault;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -27,6 +31,7 @@ public class ForumController {
     private final ThreadRepository threadRepository;
 
     private final ThreadService threadService;
+    private final ForumService forumService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @Transactional
@@ -47,5 +52,12 @@ public class ForumController {
         Forum forum = forumRepository.findOne(id);
         Thread th = threadService.addThreadToForum(dto, forum);
         return th.getId();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @Secured(UserRoles.ADMIN)
+    public ResponseEntity<?> deleteForum(@PathVariable Long id) {
+        forumService.deleteForum(id);
+        return ResponseEntity.ok().build();
     }
 }

@@ -29,6 +29,7 @@ public class Forum extends AuditingEntity {
     private List<User> moderators = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "parentForumId")
     private List<Forum> forums = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
