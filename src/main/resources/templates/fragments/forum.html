@@ -61,7 +61,18 @@
         <span th:text="${message.createdBy}"></span> replied <span th:text="${{message.createdDate}}"></span>
     </div>
     <div class="panel-body">
-        <div th:utext="${message.content}"></div>
+        <div th:id="${'msg' + message.id}" th:utext="${message.content}"></div>
+    </div>
+    <div class="panel-footer">
+        <div th:if="${(message.user?.username == #httpServletRequest.getRemoteUser()) || message.thread.forum.isModerator()}">
+            <button class="btn btn-default">
+                <i class="fa fa-edit" /> Edit
+            </button>
+
+            <button class="btn btn-danger">
+                <i class="fa fa-remove" /> Remove
+            </button>
+        </div>
     </div>
 </div>
 
