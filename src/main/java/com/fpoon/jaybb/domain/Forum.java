@@ -7,7 +7,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -26,7 +28,7 @@ public class Forum extends AuditingEntity {
     private boolean editable = true;
 
     @ManyToMany
-    private List<User> moderators = new ArrayList<>();
+    private Set<User> moderators = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "parentForumId")

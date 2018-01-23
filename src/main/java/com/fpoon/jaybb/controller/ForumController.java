@@ -59,16 +59,22 @@ public class ForumController {
         return "forumMods";
     }
 
-    /*@RequestMapping(value = "/{id}/moderators", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/moderators", method = RequestMethod.POST)
     @Transactional
-    public String postForumModerators(@PathVariable Long id,
-                           Model model) {
-        Forum forum = forumRepository.findOne(id);
-        Page<Thread> threads = threadService.listThreads(forum.getId(), pageable);
-        model.addAttribute("forum", forum);
-        model.addAttribute("threads",threads);
-        return "forum";
-    }*/
+    public ResponseEntity<?> postForumModerators(@PathVariable Long id,
+                                                 @RequestParam(name = "userId") Long userId,
+                                                 @RequestHeader(name = "referer", required = false) String referrer) { ;
+        forumService.addModerator(id, userId);
+        return ResponseEntity.ok(referrer);
+    }
+
+    @RequestMapping(value = "/{forumId}/moderators/{userId}", method = RequestMethod.DELETE)
+    @Transactional
+    public ResponseEntity<?> deleteForumModerators(@PathVariable Long forumId, @PathVariable Long userId,
+                                        @RequestHeader(name = "referer", required = false) String referrer) {
+        forumService.removeModerator(forumId, userId);
+        return ResponseEntity.ok(referrer);
+    }
 
     @RequestMapping(value = "/{id}/thread", method = RequestMethod.POST)
     @ResponseBody

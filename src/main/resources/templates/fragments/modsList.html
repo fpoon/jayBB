@@ -10,6 +10,7 @@
             <th>#</th>
             <th>Username</th>
             <th>Email</th>
+            <th>Roles</th>
             <th>Control</th>
         </tr>
         </thead>
@@ -26,13 +27,13 @@
             </td>
             <td>
                 <button class="btn btn-primary"
-                        th:unless="${#lists.contains(forum, user)}"
+                        th:unless="${#sets.contains(forum.moderators, user)}"
                         th:onclick="'forumService.addMod(' + ${forum.id} + ',' + ${user.id} + ')'">
                     <i class="fa fa-plus"></i> Add moderator
                 </button>
 
-                <button class="btn btn-primary"
-                        th:if="${#lists.contains(forum, user)}"
+                <button class="btn btn-danger"
+                        th:if="${#sets.contains(forum.moderators, user)}"
                         th:onclick="'forumService.removeMod(' + ${forum.id} + ',' + ${user.id} + ')'">
                     <i class="fa fa-remove"></i> Remove moderator
                 </button>
