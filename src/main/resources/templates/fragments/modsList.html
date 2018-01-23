@@ -27,13 +27,13 @@
             </td>
             <td>
                 <button class="btn btn-primary"
-                        th:unless="${#sets.contains(forum.moderators, user)}"
+                        th:unless="${forum.isModerator(user.username)}"
                         th:onclick="'forumService.addMod(' + ${forum.id} + ',' + ${user.id} + ')'">
                     <i class="fa fa-plus"></i> Add moderator
                 </button>
 
                 <button class="btn btn-danger"
-                        th:if="${#sets.contains(forum.moderators, user)}"
+                        th:if="${forum.isModerator(user.username)}"
                         th:onclick="'forumService.removeMod(' + ${forum.id} + ',' + ${user.id} + ')'">
                     <i class="fa fa-remove"></i> Remove moderator
                 </button>

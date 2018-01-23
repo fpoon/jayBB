@@ -42,6 +42,15 @@ public class Forum extends AuditingEntity {
     @JoinColumn(name = "forumId")
     private List<Thread> threads = new ArrayList<>();
 
+    public boolean isModerator(String username) {
+
+        if (moderators.stream().anyMatch(m -> m.getUsername().equals(username))) {
+            return true;
+        } else if (parentForum != null) {
+            return parentForum.isModerator(username);
+        } else return false;
+    }
+
     public boolean isModerator() {
         org.springframework.security.core.userdetails.User user;
         try {
@@ -56,9 +65,9 @@ public class Forum extends AuditingEntity {
         if (user.getAuthorities().contains(new SimpleGrantedAuthority(UserRoles.ADMIN)))
             return true;
 
-        if (user.getAuthorities().contains(new SimpleGrantedAuthority(UserRoles.MODERATOR))
-                && moderators.stream().anyMatch(m -> m.getUsername().equals(user.getUsername())))
-            return true;
+        if (user.getAuthorities().contains(new SimpleGrantedAuthority(UserRoles.MODERATOR))) {
+            return isModerator(user.getUsername());
+        }
 
         return false;
     }
