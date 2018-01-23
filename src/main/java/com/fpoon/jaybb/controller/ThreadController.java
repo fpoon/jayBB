@@ -42,7 +42,7 @@ public class ThreadController {
             thread = threadRepository.save(thread);
         }
 
-        Page<Message> messages = messageRepository.findAllByThreadId(thread.getId(), pageable);
+        Page<Message> messages = messageRepository.findAllByThread_id(thread.getId(), pageable);
 
         model.addAttribute("thread", thread);
         model.addAttribute("messages", new PageWrapper<>(messages));
@@ -57,14 +57,14 @@ public class ThreadController {
                               Pageable pageable) {
         Thread thread = threadRepository.findOne(id);
         messageService.addMessageToThread(dto, thread);
-        return messageRepository.findAllByThreadId(id, pageable).getTotalPages()-1;
+        return messageRepository.findAllByThread_id(id, pageable).getTotalPages()-1;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public String removeThread(@PathVariable Long id) {
         Thread thread = threadRepository.findOne(id);
-        Long forumId = thread.getForumId();
+        Long forumId = thread.getForum().getId();
         threadService.removeThread(id);
         return String.format("/forum/%d", forumId);
     }
@@ -73,7 +73,7 @@ public class ThreadController {
     @ResponseBody
     public String stickThread(@PathVariable Long id) {
         Thread thread = threadRepository.findOne(id);
-        Long forumId = thread.getForumId();
+        Long forumId = thread.getForum().getId();
         threadService.stickThread(id);
         return String.format("/forum/%d", forumId);
     }

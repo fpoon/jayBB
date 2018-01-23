@@ -21,15 +21,17 @@ public class Thread extends AuditingEntity {
     @GeneratedValue(generator = "sequenceGenerator")
     private Long id;
 
-    private Long forumId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "forumId")
+    private Forum forum;
 
     private String title;
 
     private Integer messagesSize;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @OrderBy("createdDate ASC")
     @JoinColumn(name = "threadId")
+    @OrderBy("createdDate ASC")
     private List<Message> messages = new ArrayList<>();
 
     private boolean closed = false;

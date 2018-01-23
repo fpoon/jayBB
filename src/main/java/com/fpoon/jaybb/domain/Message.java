@@ -17,7 +17,9 @@ public class Message extends AuditingEntity {
     @GeneratedValue(generator = "sequenceGenerator")
     private Long id;
 
-    private Long threadId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "threadId")
+    private Thread thread;
 
     @ManyToOne
     private User user;

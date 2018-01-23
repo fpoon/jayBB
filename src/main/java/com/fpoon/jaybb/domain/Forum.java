@@ -27,6 +27,10 @@ public class Forum extends AuditingEntity {
 
     private boolean editable = true;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parentForumId")
+    private Forum parentForum;
+
     @ManyToMany
     private Set<User> moderators = new HashSet<>();
 

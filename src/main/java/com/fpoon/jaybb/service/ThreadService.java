@@ -28,7 +28,7 @@ public class ThreadService {
                 new Sort(Sort.Direction.DESC, "sticky").and(pageable.getSort())
         );
 
-        return threadRepository.findAllByDeletedFalseAndForumId(forumId, request);
+        return threadRepository.findAllByDeletedFalseAndForum_id(forumId, request);
     }
 
     @Transactional
