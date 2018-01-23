@@ -19,4 +19,25 @@ var forumService = {
             }
         })
     },
+    
+    addMod: function (forumId, userId) {
+        $.ajax({
+            url: "/forum/" + forumId + "/moderators",
+            type: 'POST',
+            data: {userId: userId},
+            success: function (result) {
+                window.location = result;
+            }
+        })
+    },
+
+    removeMod: function (forumId, userId) {
+        $.ajax({
+            url: "/forum/" + forumId + "/moderators/" + userId,
+            type: 'DELETE',
+            success: function (result) {
+                window.location = result;
+            }
+        })
+    },
 };

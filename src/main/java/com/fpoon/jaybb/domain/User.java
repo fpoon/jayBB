@@ -38,5 +38,6 @@ public class User {
     private String email;
 
     @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "\"USER_ROLES\"")
     private Set<String> roles = new HashSet<>();
 }

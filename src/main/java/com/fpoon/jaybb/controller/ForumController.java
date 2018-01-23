@@ -3,11 +3,14 @@ package com.fpoon.jaybb.controller;
 import com.fpoon.jaybb.constant.UserRoles;
 import com.fpoon.jaybb.domain.Forum;
 import com.fpoon.jaybb.domain.Thread;
+import com.fpoon.jaybb.domain.User;
 import com.fpoon.jaybb.dto.ThreadDTO;
 import com.fpoon.jaybb.repository.ForumRepository;
 import com.fpoon.jaybb.repository.ThreadRepository;
 import com.fpoon.jaybb.service.ForumService;
 import com.fpoon.jaybb.service.ThreadService;
+import com.fpoon.jaybb.service.UserService;
+import com.fpoon.jaybb.wrapper.PageWrapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +32,7 @@ public class ForumController {
 
     private final ThreadService threadService;
     private final ForumService forumService;
+    private final UserService userService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @Transactional
@@ -41,6 +45,30 @@ public class ForumController {
         model.addAttribute("threads",threads);
         return "forum";
     }
+
+    @RequestMapping(value = "/{id}/moderators", method = RequestMethod.GET)
+    @Transactional
+    @Secured(UserRoles.ADMIN)
+    public String getForumModerators(@PathVariable Long id,
+                           Pageable pageable,
+                           Model model) {
+        Forum forum = forumRepository.findOne(id);
+        Page<User> users = userService.getUsersWithRole(UserRoles.MODERATOR, pageable);
+        model.addAttribute("forum", forum);
+        model.addAttribute("users", new PageWrapper<>(users));
+        return "forumMods";
+    }
+
+    /*@RequestMapping(value = "/{id}/moderators", method = RequestMethod.POST)
+    @Transactional
+    public String postForumModerators(@PathVariable Long id,
+                           Model model) {
+        Forum forum = forumRepository.findOne(id);
+        Page<Thread> threads = threadService.listThreads(forum.getId(), pageable);
+        model.addAttribute("forum", forum);
+        model.addAttribute("threads",threads);
+        return "forum";
+    }*/
 
     @RequestMapping(value = "/{id}/thread", method = RequestMethod.POST)
     @ResponseBody

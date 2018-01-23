@@ -93,6 +93,11 @@ public class UserService {
     }
 
     @Transactional
+    public Page<User> getUsersWithRole(String role, Pageable pageable) {
+        return userRepository.findAllByRole(role, pageable);
+    }
+
+    @Transactional
     @Modifying
     public void deleteUser(Long id) {
         userRepository.delete(id);

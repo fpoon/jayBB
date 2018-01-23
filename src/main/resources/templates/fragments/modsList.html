@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="modsList(users, forum)">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Control</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.email}"></td>
+            <td>
+                            <span class="label"
+                                  th:each="role : ${user.roles}"
+                                  th:text="${role}"
+                                  th:classappend="${role} == 'ROLE_ADMIN' ? 'label-danger' : (${role} == 'ROLE_MODERATOR' ? 'label-warning' : 'label-primary')"></span>
+            </td>
+            <td>
+                <button class="btn btn-primary"
+                        th:unless="${#lists.contains(forum, user)}"
+                        th:onclick="'forumService.addMod(' + ${forum.id} + ',' + ${user.id} + ')'">
+                    <i class="fa fa-plus"></i> Add moderator
+                </button>
+
+                <button class="btn btn-primary"
+                        th:if="${#lists.contains(forum, user)}"
+                        th:onclick="'forumService.removeMod(' + ${forum.id} + ',' + ${user.id} + ')'">
+                    <i class="fa fa-remove"></i> Remove moderator
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
