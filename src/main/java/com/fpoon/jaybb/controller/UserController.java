@@ -8,12 +8,12 @@ import com.fpoon.jaybb.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AuthorizationServiceException;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 @Controller
 @RequiredArgsConstructor
@@ -53,5 +53,22 @@ public class UserController {
         } else {
             return ResponseEntity.ok("/");
         }
+    }
+
+    @RequestMapping(value = "/user/{id}/roles", method = RequestMethod.PUT)
+    @Secured(UserRoles.ADMIN)
+    public ResponseEntity<?> setRoles(@PathVariable Long id, @RequestParam(name = "role") String role, @RequestHeader(value = "referer", required = false) String referrer) {
+        User user = userRepository.findOne(id);
+
+        Set<String> roles = UserRoles.roles.get(role);
+
+        if (roles != null) {
+            user.getRoles().clear();
+            user.getRoles().addAll(roles);
+        }
+
+        userRepository.save(user);
+
+        return ResponseEntity.ok(referrer);
     }
 }

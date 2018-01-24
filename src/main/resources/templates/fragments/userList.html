@@ -23,11 +23,23 @@
                             <span class="label"
                                   th:each="role : ${user.roles}"
                                   th:text="${role}"
-                                  th:classappend="${role} == 'ROLE_ADMIN' ? 'label-danger' : (${role} == 'ROLE_MODERATOR' ? 'label-warning' : 'label-primary')"></span>
+                                  th:classappend="${role} == 'ROLE_ADMIN' ? 'label-danger' : (${role} == 'ROLE_MODERATOR' ? 'label-warning' : 'label-success')"></span>
             </td>
             <td>
                 <button class="btn btn-danger" th:onclick="'userService.remove(' + ${user.id} + ')'">
                     <i class="fa fa-remove"></i> Remove user
+                </button>
+
+                <button class="btn btn-success" th:onclick="'userService.setRole(' + ${user.id} + ', \'ROLE_USER\')'">
+                    <i class="fa fa-user-plus"></i> Set regular user
+                </button>
+
+                <button class="btn btn-warning" th:onclick="'userService.setRole(' + ${user.id} + ', \'ROLE_MODERATOR\')'">
+                    <i class="fa fa-user-plus"></i> Set moderator
+                </button>
+
+                <button class="btn btn-danger" th:onclick="'userService.setRole(' + ${user.id} + ', \'ROLE_ADMIN\')'">
+                    <i class="fa fa-user-plus"></i> Set admin
                 </button>
             </td>
         </tr>
