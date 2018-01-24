@@ -32,6 +32,8 @@ public class Message extends AuditingEntity {
     @Column(length = 8192)
     private String content;
 
+    private boolean removed = false;
+
     public Message(String title, String content) {
         this.title = title;
         this.content = content;
