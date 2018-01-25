@@ -46,4 +46,14 @@ public class MessageService {
     public Pageable getPageWithMessage(Message msg) {
         return null;
     }
+
+    public void editMessage(Long id, String msg) {
+        msg = htmlPurifier.purify(msg);
+        Message message = messageRepository.getOne(id);
+        if (message.getUser() != userService.getCurrentUser() && !message.getThread().getForum().isModerator()) {
+            throw new AuthorizationServiceException("You're unauthorized to access this resource");
+        }
+        message.setContent(msg);
+        messageRepository.save(message);
+    }
 }
