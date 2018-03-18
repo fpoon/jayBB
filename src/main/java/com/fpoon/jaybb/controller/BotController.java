@@ -24,6 +24,16 @@ public class BotController {
 
     private final ForumRepository forumRepository;
 
+    @RequestMapping(value = "/{id}/articles/feeds", method = RequestMethod.GET)
+    @Transactional
+    @Secured({UserRoles.ADMIN, UserRoles.MODERATOR}) //Add bot role
+    public String getFeedList(@PathVariable Long id,
+                              Model model) {
+        Forum forum = forumRepository.findOne(id);
+        model.addAttribute("forum", forum);
+        return "rss-feeds";
+    }
+
     @RequestMapping(value = "/{id}/articles", method = RequestMethod.GET)
     @Transactional
     @Secured({UserRoles.ADMIN, UserRoles.MODERATOR})

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <title>RSS Feeds for forum ${forum.id}</title>
+</head>
+<body>
+<table>
+    <thead>
+    <th>ID</th>
+    <th>Link</th>
+    </thead>
+    <tbody>
+    <tr th:each="source : ${forum.rssSources}">
+        <td th:text="${source.id}"></td>
+        <td><a th:text="${source.url}" th:href="${source.url}"></a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
