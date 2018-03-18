@@ -27,6 +27,8 @@ public class Thread extends AuditingEntity {
 
     private String title;
 
+    private String sourceUrl;
+
     private Integer messagesSize;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

@@ -42,6 +42,10 @@ public class Forum extends AuditingEntity {
     @JoinColumn(name = "forumId")
     private List<Thread> threads = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "forumId")
+    private List<RssSource> rssSources = new ArrayList<>();
+
     public boolean isModerator(String username) {
 
         if (moderators.stream().anyMatch(m -> m.getUsername().equals(username))) {

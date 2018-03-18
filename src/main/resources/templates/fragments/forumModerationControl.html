@@ -23,6 +23,12 @@
         <i class="fa fa-users"></i> Set moderators
     </a>
 
+    <a class="btn btn-success"
+       sec:authorize="hasRole('ROLE_ADMIN')"
+       th:href="@{~/forum/{id}/articles(id=${forum.id})}">
+        <i class="fa fa-newspaper-o"></i> Set article stream
+    </a>
+
     <div th:replace="fragments/newForum :: newForum(${forum})"></div>
     <hr/>
 </div>

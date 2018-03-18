@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="fragments/layout" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Forum</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <i class="fa fa-rss"></i> <span th:text="'Forum #' + ${forum.id} + ' ' + ${forum.title} + ' RSS sources'"></span>
+        </div>
+        <div class="panel-body">
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Url</th>
+                    <th>Control</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="source : ${sources}">
+                    <td th:text="${source.id}"></td>
+                    <td><a th:text="${source.url}" th:href="${source.url}"></a></td>
+                    <td>
+                        <button class="btn btn-danger" th:onclick="'deleteSource(' + ${source.id} + ')'"> <i class="fa fa-remove"></i> Remove RSS feed
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div>
+                <form method="post">
+                    <div class="form-group">
+                        <label for="url">Link to RSS feed:</label>
+                        <input id="url" name="url" type="text" class="form-control"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Add new feed</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        function deleteSource(id) {
+            $.ajax({
+                url: [[@{__${#httpServletRequest.requestURI}__}]] + '/' + id,
+                type: 'DELETE',
+                success: function (result) {
+                    location.reload()
+                }
+            });
+        }
+    </script>
+</div>
+</body>
+</html>
