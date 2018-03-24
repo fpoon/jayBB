@@ -2,18 +2,20 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
-    <title>RSS Feeds for forum ${forum.id}</title>
+    <title>RSS Feeds</title>
 </head>
 <body>
 <table>
     <thead>
     <th>ID</th>
+    <th>Forum ID</th>
     <th>Link</th>
     </thead>
     <tbody>
-    <tr th:each="source : ${forum.rssSources}">
-        <td th:text="${source.id}"></td>
-        <td><a th:text="${source.url}" th:href="${source.url}"></a></td>
+    <tr th:each="feed : ${feeds}">
+        <td th:text="${feed.id}"></td>
+        <td th:text="${feed.forum.id}"></td>
+        <td><a th:text="${feed.url}" th:href="${feed.url}"></a></td>
     </tr>
     </tbody>
 </table>

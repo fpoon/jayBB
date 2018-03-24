@@ -2,6 +2,7 @@ package com.fpoon.jaybb.service;
 
 import com.fpoon.jaybb.domain.Forum;
 import com.fpoon.jaybb.domain.Thread;
+import com.fpoon.jaybb.dto.BotThreadDTO;
 import com.fpoon.jaybb.dto.ThreadDTO;
 import com.fpoon.jaybb.repository.ForumRepository;
 import com.fpoon.jaybb.repository.ThreadRepository;
@@ -34,6 +35,16 @@ public class ThreadService {
     @Transactional
     public Thread addThreadToForum(ThreadDTO dto, Forum forum) {
         Thread thread = new Thread(dto.getTitle(), purifier.purify(dto.getContent()));
+        thread = threadRepository.save(thread);
+        forum.getThreads().add(thread);
+        forumRepository.save(forum);
+        return thread;
+    }
+
+    @Transactional
+    public Thread addThreadToForum(BotThreadDTO dto, Forum forum) {
+        Thread thread = new Thread(dto.getTitle(), purifier.purify(dto.getContent()));
+        thread.setSourceUrl(dto.getUrl());
         thread = threadRepository.save(thread);
         forum.getThreads().add(thread);
         forumRepository.save(forum);

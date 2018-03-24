@@ -4,10 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -20,6 +17,10 @@ public class RssSource {
     private Long id;
 
     private String url;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "forumId", insertable = false, updatable = false)
+    private Forum forum;
 
     public RssSource(String url) {
         this.url = url;

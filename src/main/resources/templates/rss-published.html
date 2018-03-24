@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <title>RSS Feeds</title>
+</head>
+<body>
+<table>
+    <thead>
+    <th>ID</th>
+    <th>Forum ID</th>
+    <th>Link</th>
+    <th>Title</th>
+    <th>Created Date</th>
+    </thead>
+    <tbody>
+    <tr th:each="pub : ${published}">
+        <td th:text="${pub.id}"></td>
+        <td th:text="${pub.forum.id}"></td>
+        <td><a th:text="${pub.sourceUrl}" th:href="${pub.sourceUrl}"></a></td>
+        <td th:text="${pub.title}"></td>
+        <td th:text="${pub.createdDate}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

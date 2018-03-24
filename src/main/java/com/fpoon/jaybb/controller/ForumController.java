@@ -4,6 +4,7 @@ import com.fpoon.jaybb.constant.UserRoles;
 import com.fpoon.jaybb.domain.Forum;
 import com.fpoon.jaybb.domain.Thread;
 import com.fpoon.jaybb.domain.User;
+import com.fpoon.jaybb.dto.BotThreadDTO;
 import com.fpoon.jaybb.dto.ThreadDTO;
 import com.fpoon.jaybb.repository.ForumRepository;
 import com.fpoon.jaybb.repository.ThreadRepository;
@@ -80,6 +81,16 @@ public class ForumController {
     @ResponseBody
     public Long postThread(@PathVariable Long id,
                            ThreadDTO dto) {
+        Forum forum = forumRepository.findOne(id);
+        Thread th = threadService.addThreadToForum(dto, forum);
+        return th.getId();
+    }
+
+    @RequestMapping(value = "/{id}/thread/bot", method = RequestMethod.POST)
+    @Secured({UserRoles.MODERATOR, UserRoles.ADMIN})
+    @ResponseBody
+    public Long postThreadWithBot(@PathVariable Long id,
+                           BotThreadDTO dto) {
         Forum forum = forumRepository.findOne(id);
         Thread th = threadService.addThreadToForum(dto, forum);
         return th.getId();

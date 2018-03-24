@@ -4,11 +4,16 @@ import com.fpoon.jaybb.constant.UserRoles;
 import com.fpoon.jaybb.domain.Forum;
 import com.fpoon.jaybb.domain.RssSource;
 import com.fpoon.jaybb.repository.ForumRepository;
+import com.fpoon.jaybb.repository.RssSourceRepository;
+import com.fpoon.jaybb.repository.ThreadRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -23,15 +28,28 @@ import org.springframework.web.bind.annotation.*;
 public class BotController {
 
     private final ForumRepository forumRepository;
+    private final RssSourceRepository rssSourceRepository;
+    private final ThreadRepository threadRepository;
 
-    @RequestMapping(value = "/{id}/articles/feeds", method = RequestMethod.GET)
+    @RequestMapping(value = "/feeds", method = RequestMethod.GET)
     @Transactional
     @Secured({UserRoles.ADMIN, UserRoles.MODERATOR}) //Add bot role
-    public String getFeedList(@PathVariable Long id,
-                              Model model) {
-        Forum forum = forumRepository.findOne(id);
-        model.addAttribute("forum", forum);
+    public String getFeedList(Model model) {
+        model.addAttribute("feeds", rssSourceRepository.findAll());
         return "rss-feeds";
+    }
+
+    @RequestMapping(value = "/{id}/published", method = RequestMethod.GET)
+    @Transactional
+    @Secured({UserRoles.ADMIN, UserRoles.MODERATOR}) //Add bot role
+    public String getPublishedList(@PathVariable Long id,
+                                   Model model,
+                                   @PageableDefault(
+                                           size = Integer.MAX_VALUE,
+                                           sort = "createdDate",
+                                           direction = Sort.Direction.DESC) Pageable pageable) {
+        model.addAttribute("published", threadRepository.findAllBySourceUrlNotNullAndForum_Id(id, pageable));
+        return "rss-published";
     }
 
     @RequestMapping(value = "/{id}/articles", method = RequestMethod.GET)
