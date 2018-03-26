@@ -90,7 +90,7 @@ public class ForumController {
     @Secured({UserRoles.MODERATOR, UserRoles.ADMIN})
     @ResponseBody
     public Long postThreadWithBot(@PathVariable Long id,
-                           BotThreadDTO dto) {
+                           @RequestBody BotThreadDTO dto) {
         Forum forum = forumRepository.findOne(id);
         Thread th = threadService.addThreadToForum(dto, forum);
         return th.getId();

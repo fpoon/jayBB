@@ -25,6 +25,7 @@ public class Thread extends AuditingEntity {
     @JoinColumn(name = "forumId")
     private Forum forum;
 
+    @Lob
     private String title;
 
     private String sourceUrl;

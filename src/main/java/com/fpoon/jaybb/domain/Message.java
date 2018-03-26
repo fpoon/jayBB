@@ -24,12 +24,12 @@ public class Message extends AuditingEntity {
     @ManyToOne
     private User user;
 
-    @Length(min = 3, max = 255)
-    @Column(length = 255)
+    @Length(min = 3)
+    @Lob
     private String title;
 
-    @Length(min = 3, max = 8192)
-    @Column(length = 8192)
+    @Length(min = 3)
+    @Lob
     private String content;
 
     private boolean removed = false;
