@@ -2,25 +2,31 @@ package com.fpoon.jaybb.service
 
 import com.fpoon.jaybb.domain.Message
 import com.fpoon.jaybb.domain.Thread
+import com.fpoon.jaybb.domain.User
 import com.fpoon.jaybb.dto.MessageDTO
 import com.fpoon.jaybb.repository.MessageRepository
 import com.fpoon.jaybb.repository.ThreadRepository
 import org.springframework.data.domain.Pageable
+import service.HtmlPurifier
+import service.MessageService
+import service.UserService
 import spock.lang.Specification
 
 class MessageServiceTest extends Specification {
 
     private MessageRepository messageRepository
-
     private ThreadRepository threadRepository
-
+    private UserService userService
+    private HtmlPurifier htmlPurifier
     private MessageService messageService
 
     def setup() {
         messageRepository = Mock(MessageRepository.class)
         threadRepository = Mock(ThreadRepository.class)
+        userService = Mock(UserService.class)
+        htmlPurifier = Mock(HtmlPurifier.class)
 
-        messageService = new MessageService(messageRepository, threadRepository)
+        messageService = new MessageService(htmlPurifier, userService, messageRepository, threadRepository)
     }
 
     def "test add Message To Thread"() {
@@ -28,12 +34,15 @@ class MessageServiceTest extends Specification {
         def thTitle = "thTitle"
         def thContent = "thContent"
         Thread thread = new Thread(thTitle, thContent)
+        User fakeUser = new User()
         MessageDTO msg = new MessageDTO()
         msg.title = 'foo'
         msg.content = 'bar'
 
         and: "mock repository"
-        threadRepository.save(_) >> thread;
+        threadRepository.save(_) >> thread
+        userService.getCurrentUser() >> fakeUser
+        htmlPurifier.purify(_) >> {it[0]}
 
         when:
         Thread result = messageService.addMessageToThread(msg, thread)

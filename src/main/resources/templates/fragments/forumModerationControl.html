@@ -24,7 +24,7 @@
     </a>
 
     <a class="btn btn-success"
-       sec:authorize="hasRole('ROLE_ADMIN')"
+       th:if="${forum.isModerator()}"
        th:href="@{~/forum/{id}/articles(id=${forum.id})}">
         <i class="fa fa-newspaper-o"></i> Set article stream
     </a>
