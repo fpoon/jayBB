@@ -6,10 +6,10 @@ import com.fpoon.jaybb.domain.User
 import com.fpoon.jaybb.dto.MessageDTO
 import com.fpoon.jaybb.repository.MessageRepository
 import com.fpoon.jaybb.repository.ThreadRepository
+import com.fpoon.jaybb.service.HtmlPurifier
+import com.fpoon.jaybb.service.MessageService
+import com.fpoon.jaybb.service.UserService
 import org.springframework.data.domain.Pageable
-import service.HtmlPurifier
-import service.MessageService
-import service.UserService
 import spock.lang.Specification
 
 class MessageServiceTest extends Specification {
